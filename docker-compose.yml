@@ -1,0 +1,15 @@
+services:
+  floci:
+    # Floci: LocalStack-compatible free AWS emulator (https://github.com/floci-io/floci)
+    # Drop-in compatible with localstack/localstack image at port 4566
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=dynamodb
+      - DEBUG=0
+    volumes:
+      - floci-data:/var/lib/localstack
+
+volumes:
+  floci-data:
