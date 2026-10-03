@@ -49,7 +49,7 @@ dev-local: ## Floci 起動 → テーブル作成 → 全プロセス起動 (初
 	@test -d device/.venv || { echo "First run: make install-device"; exit 1; }
 	@test -d backend/.venv || { echo "First run: make install-backend"; exit 1; }
 	@test -d frontend/node_modules || { echo "First run: make install-frontend"; exit 1; }
-	docker compose up -d
+	bash scripts/floci.sh up
 	@until aws --endpoint-url http://localhost:4566 --region ap-northeast-1 dynamodb list-tables >/dev/null 2>&1; do \
 	  echo "  Waiting for Floci..."; sleep 0.5; done
 	LOCALSTACK_ENDPOINT=http://localhost:4566 bash scripts/setup-floci.sh
@@ -66,7 +66,7 @@ init-local: ## ローカル開発用グループ・デバイスを初期化 (初
 	LOCALSTACK_ENDPOINT=http://localhost:4566 BACKEND_URL=http://localhost:9001 bash scripts/init-local.sh
 
 stop-local: ## Floci を停止してデータを破棄
-	docker compose down -v
+	bash scripts/floci.sh reset
 	rm -f device/config.json
 
 clean: ## venv, node_modules, ビルド成果物を削除
