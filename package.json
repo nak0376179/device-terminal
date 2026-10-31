@@ -2,6 +2,6 @@
   "name": "device-terminal",
   "private": true,
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "concurrently": "^10.0.6"
   }
 }
